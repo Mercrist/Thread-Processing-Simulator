@@ -27,33 +27,32 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     private int termination_limit;
 
     private void holdon() {
-        try{
+        try {
             Thread.currentThread().sleep(ThreadLocalRandom.current().nextInt(500, 3000));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Something went wrong.");
         }
     }
 
     @Override
-    public String toString () {
-        String s = new String(""+ Thread.currentThread().getName() + " ");
+    public String toString() {
+        String s = new String("" + Thread.currentThread().getName() + " ");
         Node node = head;
-        s+= "(Node-1: " + node.proccessed_flag + ")";
-        s+= " ==> ";
+        s += "(Node-1: " + node.proccessed_flag + ")";
+        s += " ==> ";
 
-        for (int i=1; i<num_nodes; i++) {
+        for (int i = 1; i < num_nodes; i++) {
             node = node.next;
-            s+= "(Node-"+(i+1)+": "+node.proccessed_flag + ")";
-            if (i<num_nodes-1)
-                s+= " ==> ";
+            s += "(Node-" + (i + 1) + ": " + node.proccessed_flag + ")";
+            if (i < num_nodes - 1)
+                s += " ==> ";
         }
         return s;
     }
 
     private synchronized void holdRR(Node node, Boolean set_slot) {
         System.out.println("Thread " + Thread.currentThread().getName() + " Holding Resources");
-        node.proccessed_flag = set_slot ;
+        node.proccessed_flag = set_slot;
         System.out.println("Thread " + Thread.currentThread().getName() + " Releasing Resources");
         if (set_slot) holdon();
     }
@@ -64,23 +63,51 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         /* STARTING FROM THE FIRST NODE IN THE LINKED LIST */
         /*** IMPORTANT:: USE THE holdRR() METHODE TO ACCESS THE LINKED LIST ***/
         /*** TO AVOID RACE CONDITION ***/
+        Node node = head;
+        while (!stopLoop) {
+            if (!node.proccessed_flag)
+                holdRR(node, true); //changes to not processed
+            node = node.next;
+        }
     }
 
     public void findFilledSlot() {
         /* PUT YOUR CODE HERE TO FIND THE FILLED SLOTS */
         /* FOR THE MAIN PROCESS                        */
         /*** IMPORTANT:: USE THE holdRR() METHODE TO ACCESS THE LINKED LIST ***/
-        int count = 0 ;
+        int count = 0;
+        Node node = head;
         while (!stopLoop) {
             /* PUT YOUR CODE HERE TO FIND THE FILLED SLOTS */
-            if (count>termination_limit) break;
-            System.out.println("Main Move No.: " + count%num_nodes + "\t" + toString());
+            if (node.proccessed_flag)
+                holdRR(node, false); //change to not processed
+
+            node = node.next;
+            if (node == tail) //one loop of the CLL
+                count++;
+
+            if (count > termination_limit) break;
+            System.out.println("Main Move No.: " + count % num_nodes + "\t" + toString());
         }
     }
+
+
 
     private void fillRoundRubin () {
         /* PUT YOUR CODE HERE INITIATE THE CIRCULAR LINKED LIST */
         /* WITH DESIRED NUMBER OF NODES BASED TO THE PROGRAM   */
+        if(num_nodes < 1){return;}
+        int id = 1;
+        head = new Node(id);
+        Node prev = head;
+        while(id < num_nodes){
+            Node created = new Node(id);
+            prev.next = created;
+            prev = created;
+            id++;
+        }
+        tail = prev;
+        tail.next = head;
     }
 
     public RoundRobinCLL(int num_nodes, int termination_limit) {
