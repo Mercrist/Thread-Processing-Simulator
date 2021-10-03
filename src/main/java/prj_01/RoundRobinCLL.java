@@ -96,7 +96,6 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     private void fillRoundRubin () {
         /* PUT YOUR CODE HERE INITIATE THE CIRCULAR LINKED LIST */
         /* WITH DESIRED NUMBER OF NODES BASED TO THE PROGRAM   */
-        if(num_nodes < 1){return;}
         int id = 1;
         head = new Node(id);
         Node prev = head;
