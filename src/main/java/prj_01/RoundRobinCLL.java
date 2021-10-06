@@ -64,9 +64,11 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         /*** IMPORTANT:: USE THE holdRR() METHODE TO ACCESS THE LINKED LIST ***/
         /*** TO AVOID RACE CONDITION ***/
         Node node = head;
-        while (!stopLoop) {
-            if (!node.proccessed_flag)
-                holdRR(node, true); //changes to not processed
+        while (true) {
+            if (!node.proccessed_flag) {
+                holdRR(node, true); //changes to not processed and restarts checking for not processed nodes
+                return;
+            }
             node = node.next;
         }
     }
