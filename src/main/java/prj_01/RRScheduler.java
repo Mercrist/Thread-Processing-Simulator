@@ -16,7 +16,7 @@ public class RRScheduler {
      * and exits. Based on the user inputs, it sets the amount of threads and the termination limit:
      * the amount of iterations over the circular linked list. Else, the simulator assigns default values
      * to these variables.
-     *</p>
+     * </p>
      *
      * <p>
      * If phase '2' is selected, a {@code ThreadRunnable} object containing a
