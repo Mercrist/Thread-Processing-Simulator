@@ -12,7 +12,7 @@ public class RRScheduler {
     /**
      * <p>
      * The simulator's {@code main} method, which runs based on the indicated phase of the simulator by the user.
-     * If phase '1' is selected, the simulator simply initializes the {@code Threads}, runs them once
+     * If phase '1' is selected, the simulator initializes the {@code Threads}, runs them once
      * and exits. Based on the user inputs, it sets the amount of threads and the termination limit:
      * the amount of iterations over the circular linked list. Else, the simulator assigns default values
      * to these variables.
@@ -28,7 +28,7 @@ public class RRScheduler {
      * @param args The command line arguments entered by the user.
      */
     public static void main(String[] args){
-        int termination_limit = 100;
+        int termination_limit = 100; //default values in case they aren't provided
         int no_threads = 5;
         int project_step = 1;
         for (int i=0; i<args.length; i++) {
@@ -38,7 +38,7 @@ public class RRScheduler {
             else if (args[i].equals("-p") || args[i].equals("--processes")) {
                 no_threads = Integer.valueOf(args[++i]);
             }
-            else if (args[i].equals("-s") || args[i].equals("--prjstep")) {
+            else if (args[i].equals("-s") || args[i].equals("--prjstep")) { //incorrect input
                 project_step = Integer.valueOf(args[++i]);
                 if (project_step!=1 && project_step!=2) {
                     System.out.println("Project Step value is 1 or 2 (" + project_step + " given).");
@@ -59,14 +59,14 @@ public class RRScheduler {
         Threads threads = new Threads(no_threads, rrRunnable); //initialize threads
 
         for (int i=0; i<threads.threads.size(); i++) {
-            threads.threads.get(i).start();
+            threads.threads.get(i).start(); //starts the Threads with Java's method. Internally calls run()
         }
 
         if (roundRobine!=null) roundRobine.findFilledSlot() ; //main process running over CLL
 
         System.out.println("Main Finished ... Bye Bye");
 
-        if (roundRobine!=null) roundRobine.stopLoop = true;
+        if (roundRobine!=null) roundRobine.stopLoop = true; //once the termination limit is reached, stop iterating
 
     }
 }

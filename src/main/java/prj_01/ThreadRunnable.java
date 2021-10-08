@@ -3,7 +3,7 @@ package prj_01;
 
 /**
  * Implements the {@code Runnable} interface which allows overriding of the threads' {@code run()}
- * method. Initializes the circular linked list and allows each thread to run.
+ * method. Takes the circular linked list as a parameter and allows each thread to run.
  * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
@@ -18,17 +18,17 @@ public class ThreadRunnable implements Runnable {
     public ThreadRunnable() {
     }
 
-    /** Class constructor. Initializes the circular linked list which both the {@code Threads} and
+    /** Class constructor. Receives as a parameter the circular linked list which both the {@code Threads} and
      * main processes will iterate over.
-     * @param rr Specifies the circular linked list to iterate over.
+     * @param rr Specifies the Round Robin circular linked list to iterate over.
      */
     public ThreadRunnable(RoundRobinCLL rr) {
         this.rr = rr;
     }
 
     /** Overrides the {@code Runnable} interface {@code run()} method. Allows each thread to run. Prints
-     * the current thread being run and exits if no circular linked list has been initialized. If a
-     * circular linked list has been initialized in the class constructor, uses the {@code Threads}
+     * the current thread being run and then exits if no circular linked list has been provided. If a
+     * circular linked list has been provided in the class constructor, uses the {@code Threads}
      * to find an unprocessed slot and change it to processed, as long as the circular linked list is running.
      */
     @Override

@@ -6,7 +6,7 @@ package prj_01;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Initializes a single {@code Node} to build the circular linked list. Has a single link {@code next} which
+ * Initializes a single {@code Node} to build a circular, singly linked list. Has a single link {@code next} which
  * stores a reference to the next {@code Node} in the circular linked list.
  * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
@@ -53,7 +53,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
 
     /**
      * Sleeps the current thread for a random amount of time to prevent race conditions. Allows for each thread
-     * to run smoothly in parallel.
+     * to run in parallel.
      */
     private void holdon() {
         try {
@@ -86,7 +86,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     }
 
     /**
-     * Synchronized method manages the {@code Threads} to avoid race conditions, i.e. two or more threads
+     * This synchronized method manages the {@code Threads} to avoid race conditions, i.e. two or more threads
      * competing over the same slots. Allows only one thread to execute at a time at the given {@code Node}.
      * Additionally, sets that Node's processed status.
      * @param node The {@code Node} the current thread is accessing.
@@ -100,8 +100,9 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     }
 
     /**
-     * Sleeps the current thread to avoid race conditions. Iterates over the circular linked list until
-     * an unprocessed {@code Node} is found. Marks the {@code Node} from unprocessed to processed and halts the loop.
+     * Sleeps the current thread to avoid race conditions. Iterates over the circular linked list with {@code Threads}
+     * until an unprocessed {@code Node} is found. Marks the {@code Node} from unprocessed to processed
+     * and halts the loop.
      */
     public void findEmptySlot() {
         holdon();
@@ -118,7 +119,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     /**
      * Main process utilizes this method to loop over the circular linked list until the simulator hits the termination
      * limit. Looks for processed slots and marks them to unprocessed. Upon hitting the termination limit, the main
-     * process exits and the program ends. A loop is completed once the tail of the circular list is accessed.
+     * process exits and the program ends. A loop is completed once the tail of the circular linked list is accessed.
      */
     public void findFilledSlot() {
         int count = 0;
@@ -138,8 +139,8 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
 
 
     /**
-     * Creates the circular linked list. Assigns each {@code Node} an incremental ID and utilizes a single pointer
-     * to store a reference to the next {@code Node}. Completes the circular linked list by connecting
+     * Creates the circular, singly linked list. Assigns each {@code Node} an incremental ID and utilizes a
+     * single pointer to store a reference to the next {@code Node}. Completes the circular linked list by connecting
      * the {@code tail} of the list to the {@code head}.
      */
     private void fillRoundRubin () {
