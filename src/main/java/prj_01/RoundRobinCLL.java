@@ -129,11 +129,13 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
                 holdRR(node, false); //change to not processed
 
             node = node.next;
-            if (node == tail) //one loop of the CLL
+            if (node == head) //one loop of the CLL
                 count++;
 
             if (count > termination_limit) break;
-            System.out.println("Main Move No.: " + count % num_nodes + "\t" + toString());
+            System.out.println("Main Move No. if (node == tail) //one loop of the CLL
+                count++; if (node == tail) //one loop of the CLL
+                count++;: " + count % num_nodes + "\t" + toString());
         }
     }
 
