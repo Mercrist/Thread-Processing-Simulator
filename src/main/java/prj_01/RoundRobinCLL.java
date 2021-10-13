@@ -93,7 +93,6 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         System.out.println("Thread " + Thread.currentThread().getName() + " Holding Resources");
         node.proccessed_flag = set_slot;
         System.out.println("Thread " + Thread.currentThread().getName() + " Releasing Resources");
-        if (set_slot) holdon();
     }
 
     /**
@@ -113,6 +112,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         }
     }
 
+
     /**
      * Main process utilizes this method to loop over the circular linked list until the simulator hits the termination
      * limit. Looks for unprocessed slots and marks them as processed. Upon hitting the termination limit, the main
@@ -125,8 +125,9 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
             if (node == tail) //one loop of the CLL, head not processed again
                 count++;
 
-            if (!node.proccessed_flag)
-                holdRR(node, true); //change to not processed
+            if (!node.proccessed_flag){
+                holdRR(node, true); //change to processed
+            }
 
             node = node.next;
 
