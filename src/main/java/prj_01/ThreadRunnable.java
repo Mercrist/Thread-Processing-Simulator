@@ -4,7 +4,6 @@ package prj_01;
 /**
  * Implements the {@code Runnable} interface which allows overriding of the threads' {@code run()}
  * method. Takes the circular linked list as a parameter and allows each thread to run.
- * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
 public class ThreadRunnable implements Runnable {
@@ -29,7 +28,7 @@ public class ThreadRunnable implements Runnable {
     /** Overrides the {@code Runnable} interface {@code run()} method. Allows each thread to run. Prints
      * the current thread being run and then exits if no circular linked list has been provided. If a
      * circular linked list has been provided in the class constructor, uses the {@code Threads}
-     * to find an unprocessed slot and change it to processed, as long as the circular linked list is running.
+     * to find a processed slot and change it to unprocessed, as long as the circular linked list is running.
      */
     @Override
     public void run() {

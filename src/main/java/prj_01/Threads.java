@@ -5,7 +5,6 @@ import java.util.*;
 /**
  * Initializes the {@code Threads} in an array list
  * based on the function parameters.
- * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
 public class Threads {

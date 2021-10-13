@@ -8,7 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Initializes a single {@code Node} to build a circular, singly linked list. Has a single link {@code next} which
  * stores a reference to the next {@code Node} in the circular linked list.
- * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
 class Node {
@@ -29,7 +28,6 @@ class Node {
 /**
  * The Round Robin circular linked list interface. Contains the abstract methods to find an empty and filled
  * slot which are run by the threads and the main method respectively.
- * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
 interface RoundRobinCLLInterface {
@@ -41,7 +39,6 @@ interface RoundRobinCLLInterface {
  * The Round Robin circular linked list which implements {@code RoundRobinCLLInterface}. Builds the Round Robin
  * circular linked list and defines the abstract methods which iterate over the list. Stores a reference to both
  * {@code head} and {@code tail}.
- * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
 public class RoundRobinCLL implements RoundRobinCLLInterface {
@@ -101,15 +98,15 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
 
     /**
      * Sleeps the current thread to avoid race conditions. Iterates over the circular linked list with {@code Threads}
-     * until an unprocessed {@code Node} is found. Marks the {@code Node} from unprocessed to processed
+     * until a processed {@code Node} is found. Marks the {@code Node} from processed to unprocessed
      * and halts the loop.
      */
     public void findEmptySlot() {
         holdon();
         Node node = head;
         while (true) {
-            if (!node.proccessed_flag) {
-                holdRR(node, true); //changes to not processed
+            if (node.proccessed_flag) {
+                holdRR(node, false); //changes to not processed
                 return;
             }
             node = node.next;
@@ -118,19 +115,20 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
 
     /**
      * Main process utilizes this method to loop over the circular linked list until the simulator hits the termination
-     * limit. Looks for processed slots and marks them to unprocessed. Upon hitting the termination limit, the main
+     * limit. Looks for unprocessed slots and marks them as processed. Upon hitting the termination limit, the main
      * process exits and the program ends. A loop is completed once the tail of the circular linked list is accessed.
      */
     public void findFilledSlot() {
         int count = 0;
         Node node = head;
         while (!stopLoop) {
-            if (node.proccessed_flag)
-                holdRR(node, false); //change to not processed
+            if (node == tail) //one loop of the CLL, head not processed again
+                count++;
+
+            if (!node.proccessed_flag)
+                holdRR(node, true); //change to not processed
 
             node = node.next;
-            if (node == head) //one loop of the CLL, head not processed again
-                count++;
 
             if (count > termination_limit) break;
             System.out.println("Main Move No.: " + count % num_nodes + "\t" + toString());

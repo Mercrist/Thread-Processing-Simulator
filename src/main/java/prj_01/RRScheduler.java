@@ -5,7 +5,6 @@ package prj_01;
  * Contains the simulator's {@code main} method. Runs the Round Robin {@code Threads} simulator
  * based on what phase of the project is selected and the simulator's other input values from the command line
  * arguments.
- * @author  Abdelrahman ElSaid
  * @author  Yariel Mercado
  */
 public class RRScheduler {
@@ -22,7 +21,7 @@ public class RRScheduler {
      * If phase '2' is selected, a {@code ThreadRunnable} object containing a
      * circular linked list is created with a default value of twelve nodes. Each thread in the
      * {@code Threads} array list then starts and the main process begins to change tasks from
-     * processed to unprocessed. If phase '1' was selected, the circular linked list object is never initialized,
+     * unprocessed to processed. If phase '1' was selected, the circular linked list object is never initialized,
      * and thus never runs, exiting the main loop immediately after creating the threads.
      * </p>
      * @param args The command line arguments entered by the user.
