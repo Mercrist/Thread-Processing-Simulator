@@ -93,6 +93,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         System.out.println("Thread " + Thread.currentThread().getName() + " Holding Resources");
         node.proccessed_flag = set_slot;
         System.out.println("Thread " + Thread.currentThread().getName() + " Releasing Resources");
+//        if(set_slot) holdon();
     }
 
     /**
@@ -103,7 +104,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     public void findEmptySlot() {
         holdon();
         Node node = head;
-        while (true) {
+        while (!stopLoop) {
             if (node.proccessed_flag) {
                 holdRR(node, false); //changes to not processed
                 return;
@@ -122,12 +123,13 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         int count = 0;
         Node node = head;
         while (!stopLoop) {
+            holdon();  //makes sure the only true node is the process main is working on
+
             if (node == tail) //one loop of the CLL, head not processed again
                 count++;
 
-            if (!node.proccessed_flag){
+            if (!node.proccessed_flag)
                 holdRR(node, true); //change to processed
-            }
 
             node = node.next;
 
