@@ -6,13 +6,14 @@ package prj_01;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Initializes a single {@code Node} to build a circular, singly linked list. Has a single link {@code next} which
- * stores a reference to the next {@code Node} in the circular linked list.
+ * Initializes a single {@code Node} to build a circular, doubly linked list. Has two links {@code next} and {@code previous} which
+ * store references to the next and previous {@code Node} in the circular linked list.
  * @author  Yariel Mercado
  */
 class Node {
     public int id;
     public Node next;
+    public Node previous;
     public Boolean proccessed_flag;
 
     /** Class constructor. Initializes a {@code Node} with the Node's ID. All Nodes are initially
@@ -50,8 +51,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     private int termination_limit;
 
     /**
-     * Sleeps the current thread for a random amount of time to prevent race conditions. Allows for each thread
-     * to run in parallel.
+     * Sleeps the current thread for a random amount of time to prevent race conditions.
      */
     private void holdon() {
         try {
@@ -62,7 +62,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
     }
 
     /**
-     * Overrides the {@code toString()} method. Gets the current thread and iterates over the circular linked list
+     * Overrides the {@code toString()} method. Gets the current thread and iterates over the circular linked list,
      * printing whether each {@code Node} has been processed or not.
      * @return A string containing information about the current thread iterating over the slots and each
      * Node's processed status.
@@ -140,8 +140,8 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
 
 
     /**
-     * Creates the circular, singly linked list. Assigns each {@code Node} an incremental ID and utilizes a
-     * single pointer to store a reference to the next {@code Node}. Completes the circular linked list by connecting
+     * Creates the circular, doubly linked list. Assigns each {@code Node} an incremental ID and utilizes two pointers
+     * to store a reference to the next and previous {@code Node}. Completes the circular linked list by connecting
      * the {@code tail} of the list to the {@code head}.
      */
     private void fillRoundRubin () {
@@ -151,10 +151,12 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         while(id < num_nodes){
             Node created = new Node(id); //new node created
             prev.next = created; //link that node
+            created.previous = prev; //link to previous node
             prev = created;
             id++;
         }
         tail = prev;
+        head.previous = tail; //links head's previous to the last element
         tail.next = head; //completes circular aspect of the linked list
     }
 
