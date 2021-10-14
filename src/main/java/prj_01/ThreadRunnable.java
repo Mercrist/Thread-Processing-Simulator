@@ -36,7 +36,7 @@ public class ThreadRunnable implements Runnable {
         if (rr==null) {
             return;
         }
-        while  (!rr.stopLoop) {
+        while  (!rr.stopLoop) { //threads looking for processed slots
             // keep doing what this thread should do.
             rr.findEmptySlot();
         }

@@ -4,9 +4,9 @@ In the terminal, the program initializes the amount of threads the user passes a
 program declares it's starting up, and prints out a confirmation that each thread is being created. If no input is
 passed for the amount of threads, it defaults to creating five threads. Once each thread is initialized, the program
 confirms it's done and begins running the threads. Since the threads are in an Array List, it displays the threads
-according to their index, in some random order. Since we aren't iterating over the Circular Linked List, any value
-passed as the termination limit (number of iterations the program will perform over the CLL), won't have an effect on
-the output for this first part. Simply put, the program initializes the threads and runs each thread once.
+according to their index, in some random order. Since the threads aren't iterating over the Circular Linked List,
+any value passed as the termination limit (number of iterations the program will perform over the CLL), won't have
+an effect on the output for this first part. Simply put, the program initializes the threads and runs each thread once.
 
 For example, when running `java prj_01/RRScheduler -p 6 -t 3 -s 1`, one such output is:
 

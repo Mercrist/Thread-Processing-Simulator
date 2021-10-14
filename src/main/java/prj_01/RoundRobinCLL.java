@@ -42,6 +42,7 @@ interface RoundRobinCLLInterface {
  * @author  Yariel Mercado
  */
 public class RoundRobinCLL implements RoundRobinCLLInterface {
+    /* Default Values */
     private int num_nodes = 5;
     public Node head = null;
     public Node tail = null;
@@ -102,11 +103,11 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
      */
     public void findEmptySlot() {
         Node node = head;
-        while (!stopLoop) {
+        while (!stopLoop) { //while the program is running
             holdon();
             if (node.proccessed_flag) {
                 holdRR(node, false); //changes to not processed
-                return;
+                return; //exit as soon as we change a node
             }
             node = node.next;
         }
@@ -122,7 +123,7 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         int count = 0;
         Node node = head;
         while (!stopLoop) {
-            holdon();
+            holdon(); //main will wait on each node to prevent either main or threads from going too fast
             if (node == tail) //one loop of the CLL, head not processed again
                 count++;
 
@@ -148,13 +149,13 @@ public class RoundRobinCLL implements RoundRobinCLLInterface {
         head = new Node(0);
         Node prev = head;
         while(id < num_nodes){
-            Node created = new Node(id);
-            prev.next = created;
+            Node created = new Node(id); //new node created
+            prev.next = created; //link that node
             prev = created;
             id++;
         }
         tail = prev;
-        tail.next = head;
+        tail.next = head; //completes circular aspect of the linked list
     }
 
     /** Class constructor. Initializes the circular linked list based on the number of nodes and the simulator's
