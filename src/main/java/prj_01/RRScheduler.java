@@ -1,4 +1,4 @@
-// Yariel Mercado yariel.mercado1@uprm.edu
+// Yariel Mercado 
 package prj_01;
 
 /**
